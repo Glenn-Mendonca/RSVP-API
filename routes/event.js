@@ -65,6 +65,20 @@ router.post("/", async (req, res) => {
     );
 });
 
+router.get("/", async (req, res){
+    const params = req.query;
+    Event.find({organizer : params.organizer},function(err, data) {
+        if(err)
+        {
+            res.send('fail');
+        }
+        else
+        {
+            res.send(data);
+        }
+    })
+})
+
 module.exports = router;
 
 // https://glenn-mendonca-39-nope-js-hackover3-0-rx9j56g76qghrjj-3000.githubpreview.dev/auth

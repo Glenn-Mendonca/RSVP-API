@@ -16,11 +16,9 @@ var storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-// const upload = require("./routes/upload");
-// app.use("/file", upload);
-
 //Routes
 const auth = require("./routes/auth");
+const verify = require("./routes/verify");
 const event = require("./routes/event");
 
 // Constants
@@ -36,16 +34,6 @@ mongoose.Promise = global.Promise;
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }, (err) => {
     console.log("Conected to DB");
 });
-
-// //creating bucket
-// let bucket;
-// mongoose.connection.on("connected", () => {
-//     var db = mongoose.connections[0].db;
-//     bucket = new mongoose.mongo.GridFSBucket(db, {
-//         bucketName: "newBucket",
-//     });
-//     console.log(bucket);
-// });
 
 //to parse json content
 app.use(express.json());
@@ -75,10 +63,10 @@ app.post("/upload", upload.single("image"), (req, res) => {
     res.send("File uploaded");
 });
 
-// app.get("/event", (req, res) => {
-//     res.send("Event");
-// });
 app.use("/event", event);
+
+//VERIFY
+app.use("/verify", verify);
 
 app.listen(PORT, () => {
     console.log(`Application running on port : ${PORT}`);

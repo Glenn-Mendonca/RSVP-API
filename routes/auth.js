@@ -1,30 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
-
-// Schema
-const CustomerSchema = {
-    email: String,
-    password: String,
-    registeredEvents: Array,
-    city: String,
-};
-const OrganizerSchema = {
-    email: String,
-    password: String,
-    isVerified: Boolean,
-    idProof: {
-        data: Buffer,
-        contentType: String,
-    },
-};
-const AdminSchema = {
-    email: String,
-    password: String,
-};
-const Customer = mongoose.model("Customer", CustomerSchema);
-const Organizer = mongoose.model("Organizer", OrganizerSchema);
-const Admin = mongoose.model("Admin", AdminSchema);
+const { Customer } = require("../models/customer");
+const { Admin } = require("../models/admin");
+const { Organizer } = require("../models/organizer");
 
 // SignUp/Login Customer
 router.post("/customer", async (req, res) => {
@@ -123,5 +102,3 @@ router.post("/organizer", async (req, res) => {
 });
 
 module.exports = router;
-
-// https://glenn-mendonca-39-nope-js-hackover3-0-rx9j56g76qghrjj-3000.githubpreview.dev/auth

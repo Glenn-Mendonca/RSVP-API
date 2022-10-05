@@ -75,9 +75,9 @@ app.post("/upload", upload.single("image"), (req, res) => {
     res.send("File uploaded");
 });
 
-app.get("/event", (req, res) => {
-    res.send("Event");
-});
+// app.get("/event", (req, res) => {
+//     res.send("Event");
+// });
 app.use("/event", event);
 
 app.listen(PORT, () => {

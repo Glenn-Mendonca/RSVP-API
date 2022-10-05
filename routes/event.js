@@ -42,6 +42,16 @@ router.post("/", async (req, res) => {
     );
 });
 
+router.post("/update", async (req, res) => {
+    const data = req.query;
+    delete data.name;
+    const name = req.query.name;
+    Event.updateOne({ eventName: name }, { ...data }, function (err) {
+        if (err) res.send(err);
+        else res.send("success");
+    });
+});
+
 router.get("/", async (req, res) => {
     const params = req.query;
     Event.find({ organizer: params.organizer }, function (err, data) {
